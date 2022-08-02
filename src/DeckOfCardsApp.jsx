@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getDeck } from "./helpers/getDeck";
+import { getDeckId } from "./helpers/getDeckId";
 import { Board } from "./components/Board";
 import Deck from "react-poker";
 
@@ -8,13 +8,13 @@ export const DeckOfCardsApp = () => {
   // const [deckId, setDeckId ] = useState('');
   
   // useEffect( () => {
-  //   getDeck()
+  //   getDeckId()
   //   .then( deck_id => setDeckId( deck_id ));
   // }, []);
 
   return (
-    <>
+    <div className='main'>
       <Board/>
-    </>
+    </div>
   )
 }
