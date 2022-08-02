@@ -1,0 +1,32 @@
+* {
+    /* background-image: linear-gradient(to bottom, #4a1a27, #883030 600px); */
+    box-sizing: border-box;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+#card {
+    height:100%;
+    transform-style:preserve-3d;
+    transition-timing-function:ease-in-out;
+    transition:transform .2s;
+    width:100%;
+    will-change:transform;
+}
+
+.back{
+    transform:rotateY(180deg);
+}
+
+.back,.front{
+    backface-visibility:hidden;
+    left:0;
+    position:absolute;
+    top:0;
+}
+.container{
+    perspective:400px;
+    position:relative;
+    z-index:1;
+}
