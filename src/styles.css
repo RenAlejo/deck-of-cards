@@ -17,15 +17,21 @@ body {
 }
 
 .board {
+    border: 35px solid;
     background-image: radial-gradient(#7aaa65, #39643a);
+    border-image: linear-gradient(45deg,#C19A6B,#B28B5C) 1;
     min-height: 650px;
     min-width: 100vw;
     padding: 60px;
     position: fixed;
-    border: 35px solid;
-    border-image: linear-gradient(45deg,#C19A6B,#B28B5C) 1;
 }
 
+.btn__deal-cards {
+    height: 40px;
+    position:fixed;
+    width: 80px;
+    z-index: 20;
+}
 
 #card {
     height:100%;
