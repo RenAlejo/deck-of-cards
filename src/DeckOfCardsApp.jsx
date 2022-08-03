@@ -1,26 +1,53 @@
-import Deck from "react-poker";
 import { useEffect, useState } from "react";
-import { getDeckId } from "./helpers/getDeckId";
-import { Cards } from './components/Cards';
-import { DealCards } from './components/DealCards';
+import Deck from "react-poker";
+import { Cards, DealCards, Remaining, QueenSuitCards } from './components';
+import { getDeck } from "./helpers/getDeck";
 
 // MUI
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
+const queenCardCodes = ['QH','QC','QS','QD']
+
 export const DeckOfCardsApp = () => {
 
     const [deckId, setDeckId ] = useState('');
     const [cards , setCards  ] = useState();
+    const [remainingCards, setRemainingCards ] = useState(0);
+    const [round, setRound  ]  = useState(1)
+    const [queenSuitCards, setQueenSuit ] = useState();
 
     useEffect( () => {
-      getDeckId()
-      .then( deck_id => setDeckId( deck_id ));
-    }, []);
+      getDeck()
+      .then( ({deck_id, remaining}) => {
+        setDeckId( deck_id )
+        setRemainingCards( remaining )
+      });
+    }, [ round ]);
     
 
     const onAddCard = ( newCard ) => {
-      (!cards || cards.length === 5) ? setCards([ newCard ]) : setCards([ newCard, ...cards])
+
+      const { card, remaining } = newCard;
+
+      if(cards && cards.length === 5) {
+        cards.forEach( c => {
+          if(queenCardCodes.includes(c[0].code)){
+            (!queenSuitCards) ? setQueenSuit([ cards ]) : setQueenSuit([ cards, ...queenSuitCards]);
+          }
+        });
+      }
+
+      (!cards || cards.length === 5) ? setCards([ card ]) : setCards([ card, ...cards])
+
+      if(remaining === 0 ) {
+        console.log(queenSuit);
+        setCards();
+        setRound(round + 1 );
+      }
+
+      setRemainingCards(remaining);
+
     }
 
     return (
@@ -31,7 +58,8 @@ export const DeckOfCardsApp = () => {
             <>  
               <DealCards 
                 onNewCard={onAddCard} 
-                deckId   ={ deckId  } 
+                deckId   ={ deckId  }
+                remaining={remainingCards} 
               /> 
               <Deck
                 board       ={[]}
@@ -42,14 +70,26 @@ export const DeckOfCardsApp = () => {
               <Cards
                 cards={cards}
               />
+
+              <Remaining
+                remainingCards = {remainingCards}
+              />
+
+              <QueenSuitCards
+                cards = {queenSuitCards}
+              />
+
             </>
             :
-            <Box sx={ { 
-                display       :'flex', 
-                alignItems    :'center', 
-                justifyContent:'center', 
-                marginTop     :'calc(100vh / 5)'
-            }}>
+            <Box sx=
+            { 
+              { 
+                  display       :'flex', 
+                  alignItems    :'center', 
+                  justifyContent:'center', 
+                  marginTop     :'calc(100vh / 5)'
+              }
+            }>
               <CircularProgress />
             </Box>
           }

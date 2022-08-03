@@ -2,15 +2,15 @@ import { getCards } from "./../helpers/getCards";
 import Button from '@mui/material/Button';
 
 
-export const DealCards = ({ onNewCard, deckId }) => {
+export const DealCards = ({ onNewCard, deckId, remaining}) => {
     
     const onDealCard = () => {
-        getCards(deckId).then( card => onNewCard(card));
+        getCards(deckId).then( newCard => onNewCard(newCard));
     }
 
     return (
         <Button className="btn deal" onClick={ onDealCard } variant="contained" color="success">
-            Deal
+            { remaining === 0 ? "Play Again" : "Deal" }
         </Button>
     );
 }
