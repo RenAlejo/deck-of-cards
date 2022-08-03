@@ -33,7 +33,7 @@ export const DeckOfCardsApp = () => {
       if(cards && cards.length === 5) {
         cards.forEach( c => {
           if(queenCardCodes.includes(c[0].code)){
-            (!queenSuitCards) ? setQueenSuit([ cards ]) : setQueenSuit([ cards, ...queenSuitCards]);
+            setQueenSuit([ cards ]);
           }
         });
       }
@@ -41,21 +41,25 @@ export const DeckOfCardsApp = () => {
       (!cards || cards.length === 5) ? setCards([ card ]) : setCards([ card, ...cards])
 
       if(remaining === 0 ) {
-        console.log(queenSuit);
         setCards();
+        setQueenSuit();
         setRound(round + 1 );
       }
 
       setRemainingCards(remaining);
-
     }
 
     return (
       <div className='main'>
+        <Remaining
+          remainingCards = {remainingCards}
+        />
         <div className='board'>
           { 
             deckId ?
-            <>  
+            <> 
+            
+
               <DealCards 
                 onNewCard={onAddCard} 
                 deckId   ={ deckId  }
@@ -69,10 +73,6 @@ export const DeckOfCardsApp = () => {
               />
               <Cards
                 cards={cards}
-              />
-
-              <Remaining
-                remainingCards = {remainingCards}
               />
 
               <QueenSuitCards

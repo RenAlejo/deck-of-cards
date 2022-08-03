@@ -7,6 +7,7 @@
 
 body {
     background: rgb(46 7 7);
+    overflow-x: hidden;
 }
 
 .main {
@@ -25,7 +26,7 @@ body {
     min-height: 650px;
     min-width: 100vw;
     padding: 60px;
-    position: fixed;
+    position: absolute;
 }
 
 .btn.deal {
@@ -33,7 +34,6 @@ body {
     top: 50%;
     width: 152px;
 }
-
 
 
 .cards__container {
@@ -46,20 +46,44 @@ body {
     padding: 10px;
 }
 
+.cards__container.secondary {
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+    animation-name: fadeInOut, moveLeft300px, bounce;
+    margin-top: 10px;
+    min-height: 130px;
+    padding: 0;
+}
+
+
 .card {
-    display: inline-flex;
-    margin: 20px;
-    height: 210px;
-    width: 167px;
     border-radius: 8px;
+    display: inline-flex;
+    height: 210px;
+    margin: 20px;
     transform-style:preserve-3d;
     transition-timing-function:ease-in-out;
     transition:transform .2s;
+    width: 167px;
     will-change:transform;
 }
 
 .card:hover {
     transform:rotateY(180deg);
+}
+
+.card.secondary {
+    height: 60px;
+    margin: 10px;
+    width: 40px;
+}
+
+.suit.container {
+    background-image: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%);
+    border-radius: 5px;
+    display: inline;
+    height: 10px;
+    margin-left: 15px;
 }
 
 #card {
